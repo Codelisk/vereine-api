@@ -1,0 +1,76 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- Indirekte Pakete, die unten eine Version tragen, gelten in dieser Version (Sicherheitsfixes, siehe Label "Transitiv"). -->
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Version-Gruppen">
+    <!-- ASP.NET Core / Microsoft.Extensions folgen der SDK-Vorschau aus global.json -->
+    <AspNetCoreVersion>11.0.0-rc.3.26522.148</AspNetCoreVersion>
+    <!-- Orleans 10.x targetet net10.0 und laeuft auf net11.0 ueber TFM-Kompatibilitaet.
+         Neue Orleans-Version (auch eine 11er-Vorschau) sofort uebernehmen. -->
+    <OrleansVersion>10.4.2</OrleansVersion>
+    <AspireVersion>13.6.4</AspireVersion>
+    <ExtensionsVersion>10.11.0</ExtensionsVersion>
+    <OpenTelemetryVersion>1.20.1</OpenTelemetryVersion>
+    <ShinyMediatorVersion>6.12.0</ShinyMediatorVersion>
+    <ShinyAspireOrleansVersion>1.1.0</ShinyAspireOrleansVersion>
+  </PropertyGroup>
+
+  <ItemGroup Label="Orleans">
+    <PackageVersion Include="Microsoft.Orleans.Sdk" Version="$(OrleansVersion)" />
+    <PackageVersion Include="Microsoft.Orleans.Server" Version="$(OrleansVersion)" />
+    <PackageVersion Include="Microsoft.Orleans.Runtime" Version="$(OrleansVersion)" />
+    <PackageVersion Include="Microsoft.Orleans.Reminders" Version="$(OrleansVersion)" />
+    <PackageVersion Include="Microsoft.Orleans.Dashboard" Version="$(OrleansVersion)" />
+    <PackageVersion Include="Microsoft.Orleans.TestingHost" Version="$(OrleansVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Label="Shiny">
+    <!-- Silo-Seite der Aspire-Orleans-Integration: verdrahtet Clustering, Grain-Storage und Reminder
+         aus der von Aspire injizierten Konfiguration (ADO.NET, Postgres). -->
+    <PackageVersion Include="Shiny.Aspire.Orleans.Server" Version="$(ShinyAspireOrleansVersion)" />
+    <!-- AppHost-Seite: legt das Orleans-Schema in Postgres an, sobald die Datenbank bereit ist. -->
+    <PackageVersion Include="Shiny.Aspire.Orleans.Hosting" Version="$(ShinyAspireOrleansVersion)" />
+    <!-- HTTP-Endpunkte aus Mediator-Handlern (Quellgenerator); Handler rufen Grains. -->
+    <PackageVersion Include="Shiny.Mediator.AspNet" Version="$(ShinyMediatorVersion)" />
+    <!-- IWebModule: eine Klasse je Belang, explizit registriert, ohne Assembly-Scan (AOT-tauglich). -->
+    <PackageVersion Include="Shiny.AspNet.WebHosting" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Aspire">
+    <PackageVersion Include="Aspire.Hosting.Orleans" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="$(AspireVersion)" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="$(AspireVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Label="AspNetCore">
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspNetCoreVersion)" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.18.6" />
+  </ItemGroup>
+
+  <ItemGroup Label="ServiceDefaults">
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(ExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(ExtensionsVersion)" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="$(OpenTelemetryVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Label="Transitiv">
+    <!-- Kommt ueber Shiny.Aspire.Orleans (dort 2.5.0). GHSA-473q-m89c-ghf8 ist ab 2.6.1 behoben;
+         Vereine nutzt kein MySQL, der Treiber wird nur mitgeladen. -->
+    <PackageVersion Include="MySqlConnector" Version="2.6.2" />
+    <!-- Kommt im AppHost ueber Aspire (dort 9.0.11). CVE-2026-70162 und CVE-2026-84008 sind in der Vorschau ab rc.2 behoben. -->
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(AspNetCoreVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Label="Testing">
+    <PackageVersion Include="xunit.v3" Version="4.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)" />
+  </ItemGroup>
+
+</Project>

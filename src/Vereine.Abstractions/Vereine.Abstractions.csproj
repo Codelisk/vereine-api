@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Grain-Interfaces und serialisierbare Contracts. Keine Implementierungen, keine Infrastruktur:
+       dieses Assembly teilen Silo, API und Tests. -->
+  <PropertyGroup>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Sdk" />
+  </ItemGroup>
+
+</Project>

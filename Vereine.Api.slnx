@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Vereine.Abstractions/Vereine.Abstractions.csproj" />
+    <Project Path="src/Vereine.Api/Vereine.Api.csproj" />
+    <Project Path="src/Vereine.AppHost/Vereine.AppHost.csproj" />
+    <Project Path="src/Vereine.Grains/Vereine.Grains.csproj" />
+    <Project Path="src/Vereine.ServiceDefaults/Vereine.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Vereine.Tests/Vereine.Tests.csproj" />
+  </Folder>
+  <Folder Name="/solution/">
+    <File Path=".editorconfig" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>

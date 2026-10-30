@@ -1,0 +1,22 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.6.4">
+
+  <!-- Lokaler Stack: Postgres, Orleans-Schema, vereine-api und vereine-web aus dem Geschwister-Repo. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>vereine-apphost</UserSecretsId>
+    <!-- ASPIRE010: Gestartet wird mit dotnet run, das Aspire-CLI-Bundle wird nicht gebraucht. -->
+    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Orleans" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
+    <PackageReference Include="Shiny.Aspire.Orleans.Hosting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vereine.Api\Vereine.Api.csproj" />
+  </ItemGroup>
+
+</Project>

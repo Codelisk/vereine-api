@@ -1,0 +1,40 @@
+<Project>
+
+  <PropertyGroup Label="Target">
+    <TargetFramework>net11.0</TargetFramework>
+    <!-- Immer die neueste C#-Vorschau (Workspace-Regel) -->
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Quality">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- Doc-File noetig, damit IDE0005 (unnoetige usings) im Build laeuft; CS1591 (fehlende XML-Doku) ist gewollt aus -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Aot">
+    <!-- AOT soweit Orleans es zulaesst (ADR-0002): Trim- und AOT-Analyzer laufen in jedem Projekt,
+         Bibliotheken sind zusaetzlich IsAotCompatible (siehe deren csproj). -->
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    <EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build">
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Product">
+    <Authors>Codelisk</Authors>
+    <Company>Codelisk</Company>
+    <Product>Vereine API</Product>
+    <NeutralLanguage>de</NeutralLanguage>
+  </PropertyGroup>
+
+</Project>

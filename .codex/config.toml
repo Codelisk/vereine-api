@@ -1,0 +1,6 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Offizielle Microsoft-Dokumentation (Orleans, ASP.NET Core, Aspire).
+# Projektlokal: Codex laedt diese Konfiguration nur fuer ein vertrautes Repo.
+[mcp_servers.microsoft-learn]
+url = "https://learn.microsoft.com/api/mcp"
